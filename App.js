@@ -1,54 +1,53 @@
-import React, { useState } from 'react';
-
+import React, { Component } from 'react';
 import './App.css';
-import Person from './Person/Person'
+import Person from './Person/Person';
 
-const app = props => {
-  
- const [personState,setPersonState] = useState({
-    persons:[
-      {name:'Bashar',age:28},
-      {name:'Manu',age:29},
-      {name:'Stephanie', age:26}
+class App extends Component {
+  state = {
+    persons: [
+      { name: 'Max', age: 28 },
+      { name: 'Manu', age: 29 },
+      { name: 'Stephanie', age: 26 }
     ],
-    
-  });
-  const [otherState,setOtherState] = useState('some other state');
-
-  console.log(personState,otherState);
-  
-  const switchNameHandler = ()=>
-  {
-    //console.log('Was clicked!');
-    setPersonState({persons:[
-      {name:'Bashar',age:28},
-      {name:'Mushaf',age:129},
-      {name:'Stephanie', age:26}
-    ]});
+    otherState: 'some other value'
   };
+
+  switchNameHandler = () => {
+    // console.log('Was clicked!');
+    // DON'T DO THIS: this.state.persons[0].name = 'Maximilian';
+    this.setState({
+      persons: [
+        { name: 'Maximilian', age: 28 },
+        { name: 'Manu', age: 29 },
+        { name: 'Stephanie', age: 27 }
+      ]
+    });
+  };
+
+  render() {
     return (
       <div className="App">
-        
-        
-          <h1>Hi! I'm a React App</h1>
-          <button onClick={switchNameHandler}>PRESS</button>
-          <Person name={personState.persons[0].name} age={personState.persons[0].age}/>
-          <Person name={personState.persons[1].name} age={personState.persons[1].age}>My hobbies: Racing</Person>
-          <Person name={personState.persons[2].name} age={personState.persons[2].age}/>
-        
+        <h1>Hi, I'm a React App</h1>
+        <p>This is really working!</p>
+        <button onClick={this.switchNameHandler}>Switch Name</button>
+        <Person
+          name={this.state.persons[0].name}
+          age={this.state.persons[0].age}
+        />
+        <Person
+          name={this.state.persons[1].name}
+          age={this.state.persons[1].age}
+        >
+          My Hobbies: Racing
+        </Person>
+        <Person
+          name={this.state.persons[2].name}
+          age={this.state.persons[2].age}
+        />
       </div>
     );
-  //return React.createElement('div',{className: "App"},React.createElement('h1',null,"Does this work now?"))
-  
-
-
-
-
-
-  
+    // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
+  }
 }
 
-export default app;
-
-
-
+export default App;
